@@ -63,9 +63,9 @@ RUN apt-get update && apt-get install -y libaio1
 # Install quarto
 WORKDIR /root
 RUN if [ "$(uname -m)" = "aarch64" ]; then \
-        curl -o quarto.deb -L "https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.42/quarto-1.6.42-linux-arm64.deb"; \
+        curl --http1.1 -o quarto.deb -L --retry 5 "https://github.com/quarto-dev/quarto-cli/releases/download/v1.8.24/quarto-1.8.24-linux-arm64.deb"; \
     elif [ "$(uname -m)" = "x86_64" ]; then \
-        curl -o quarto.deb -L "https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.42/quarto-1.6.42-linux-amd64.deb"; \
+        curl --http1.1 -o quarto.deb -L --retry 5 "https://github.com/quarto-dev/quarto-cli/releases/download/v1.8.24/quarto-1.8.24-linux-amd64.deb"; \
     fi
 RUN dpkg -i quarto.deb && \
     rm quarto.deb
